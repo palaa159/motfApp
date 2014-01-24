@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.0.css" />
+    <link rel="stylesheet" type="text/css" href="css/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="css/leaflet.label.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>motfApp 2.0</title>
+</head>
+<body>
+    <!-- HTML STARTS -->
+    <!-- landing page #p_landing -->
+    <div data-role="page" id="p_landing">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+        </div>
+
+        <div role="main" class="ui-content fullHeight">
+            <div id="fetching">
+                <img class="loaderGif" src="css/images/ajax-loader.gif">
+                <h5>Retrieving data ... </h5>
+            </div>
+        </div>
+    </div>
+
+    <!-- landing page #p_offline -->
+    <div data-role="page" id="p_offline">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+            <h1>Default header / sometimes no need</h1>
+        </div>
+
+        <div role="main" class="ui-content fullHeight">
+            <h1>offine page</h1>
+        </div>
+    </div>
+
+    <!-- list view page #p_list -->
+    <div data-role="page" id="p_poets" data-title="Poets"> 
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+         <h1>Default header / sometimes no need</h1>
+        </div>
+
+        <div role="main" class="ui-content fullHeight">
+            <ul data-role="listview" data-split-icon="gear" data-split-theme="d" class="ui-listview">
+                    <li id="forClone" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="false" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li ui-li-has-alt ui-btn-up-cs">
+                        <div class="ui-btn-inner ui-li ui-li-has-alt">
+                            <div class="ui-btn-text">
+                                <a href="#p_detail" class="ui-link-inherit" data-transition="slide">
+                                    <div class="detailText">
+                                        <h3 id="nodeSeq" class="ui-li-heading"></h3>
+                                        <h3 id="nodeAuthor" class="ui-li-heading"></h3>
+                                        <p id="nodeTitle" class="ui-li-heading"></p>
+                                        <p id="nodeAddress" class="ui-li-desc"></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+        </div>
+    </div>
+    <!-- map page #p_map -->
+    <div data-role="page" id="p_map" data-title="Map">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+            <h1>Explore Map</h1>
+        </div>
+
+        <div role="main" class="ui-content fullHeight">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!--   #p_detail -->
+    <div data-role="page" id="p_detail" data-title="Poet Detail" class="gradient-background2">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+            <span class="ui-title">POET</span>
+        </div>
+        <div data-role="content" class="scrollable detailScrollable">
+            <div id="detailNodeVideo">
+                <video id="ytplayer" class="video-js vjs-default-skin" width="" height="" data-setup="{}">
+                    <source src="" type='video/mp4'>
+                </video>
+            </div>
+
+            <div id="detailContainer">
+                <div id="detailCircle">
+                    <div id="detailSeqNum"></div>
+                </div>
+                <div id="detailNodeDesc"></div>
+            </div>
+            <div id="detailNodeTitle"></div>
+
+            <div>
+                <div id="detailNodeAddress"></div>
+                <center><div id="detailNodeMap"></div></center>
+            </div>
+                <a href="#poemView" id="poemButton" data-role="button" data-transition="fade" data-inline="true">Read Poem ></a>
+        </div>
+    </div>
+
+    <!-- create page #p_create -->
+    <div data-role="page" id="p_create" data-title="Create">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+            <h1>Default header / sometimes no need</h1>
+        </div>
+
+        <div role="main" class="ui-content fullHeight">
+            <h1>create page</h1>
+        </div>
+    </div>
+
+    <!-- info page #p_info -->
+    <div data-role="page" id="p_info" data-title="Info">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+            <h1>Default header / sometimes no need</h1>
+        </div>
+
+        <div role="main" class="ui-content fullHeight">
+            <h1>info page</h1>
+        </div>
+    </div>
+
+    <!-- HTML ENDS -->
+    <!-- PERSISTENT TOOLBAR -->
+    <div data-role="footer" data-position="fixed" data-theme="a" role="contentinfo" class="ui-footer ui-footer-fixed slideup ui-bar-a" data-tap-toggle="false">
+        <div data-role="navbar" class="ui-navbar" role="navigation">
+            <ul class="ui-grid-c">
+                <li class="ui-block-a"><a href="#p_poets" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Poets</a></li>
+                <li class="ui-block-b"><a href="#p_map" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Map</a></li>
+                <li class="ui-block-c"><a href="#p_create" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Create</a></li>
+                <li class="ui-block-d"><a href="#p_info" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Info</a></li>
+            </ul>
+        </div><!-- /navbar -->
+    </div>
+    <!-- SCRIPTS -->
+    <script type="text/javascript" src="js/functions.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery.mobile-1.4.0.min.js"></script>
+    <script type="text/javascript" src="js/vendor/fastclick.min.js"></script>
+    <script type="text/javascript" src="js/vendor/parse.min.js"></script>
+    <script type="text/javascript" src="js/vendor/leaflet.js"></script>
+    <script type="text/javascript" src="js/vendor/leaflet.label.js"></script>
+    <!-- CORDOVA -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/pagehandlers.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>
