@@ -97,10 +97,35 @@ body {
     bottom: 5px;
 }
 
+#btnAddUgc {
+    position: absolute;
+    left: calc(50% - 90px);
+    bottom: 5px;
+    width: 150px;
+    text-align: center;
+}
+
+#btnCreateUgc {
+    position: absolute;
+    left: calc(50% - 90px);
+    bottom: 5px;
+    width: 150px;
+    text-align: center;
+}
+
 #menuContent {
     -webkit-overflow-scrolling: touch;
 }
 
 .leaflet-popup-close-button {
     display: none;
+}
+
+#crosshair {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 50%;
+    /*display: none;*/
 }

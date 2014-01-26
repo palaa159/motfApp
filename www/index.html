@@ -25,7 +25,7 @@
         </div>
         <!-- landing page #p_offline -->
         <div data-role="page" id="p_offline">
-            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
             </div>
             <div role="main" class="ui-content fullHeight">
                 <div id="offlineMessage">
@@ -102,26 +102,36 @@
         </div>
         <!-- create page #p_create -->
         <div data-role="page" id="p_create" data-title="p_create">
-            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
-                <h1>CREATE</h1>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
+                <span class="ui-title">CREATE</span>
+            </div>
+            <div role="main" class="ui-content map fullHeight">
+                <div id="ugcMap">
+                </div>
+                <div id="crosshair"></div>
+                <a onclick="UGCMapView.capture();" href="#p_addInput" id="btnAddUgc" data-role="button" data-inline="true" data-theme="e" class="ui-btn-e">Add a poem</a>
+            </div>
+        </div>
+        <!-- UGC ADD POEM -->
+        <div data-role="page" id="p_addInput" title="p_addInput">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
+                <a href="#p_create" data-transition="none" data-role="button" data-icon="myapp-left" data-iconpos="notext" class="ui-btn-a">Back</a>
             </div>
             <div role="main" class="ui-content fullHeight">
-                <h1>create page</h1>
+                <p style="color: #000">Please add your memories, stories, poetry and visions of the future for this location:</p>
+                <input type="text" id="ugcTitle" placeholder="Title">
+                <textarea rows="7" id="ugcContent" placeholder="Enter text"></textarea>
+                <div id="btnCreateUgc" data-role="button" data-inline="true" data-theme="e" class="ui-btn-e">Create</div>
             </div>
         </div>
         <!-- info page #p_info -->
         <div data-role="page" id="p_info" data-title="p_info">
-            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
                 <h1>INFO</h1>
             </div>
             <div role="main" class="ui-content fullHeight">
-                <div class="mainInfo">
-                    <center><img id="paddedImage" src="img/header_stacked.png"></center>
                     <p>A location based cinema project based in the Hunts Point neighborhood of the South Bronx, using memories called back from the past to understand the nature of the present moment, and project a re-imagined version of that moment into the future.
                     </p>
-                    <center>
-                        <iframe id="ytplayerIntro" type="text/html" width="" height="" src="" frameborder="0" webkit-playsinline></iframe>
-                    </center>
                     <p>
                         The Memories of the Future project explores how communities can discuss and express the potential for transcending issues of urban spatial injustice. Sixteen spoken word poets, writing from the point of view of different locations throughout Hunts Point in the South Bronx, speak as interpreters, testifying on behalf of the locations themselves. Together they weave a spatial narrative that forms the basis of the mobile application, beginning at the Hunts Point train station with a view of the past, and ending at Bronx River with a look toward the future.
                     </p>
@@ -143,7 +153,6 @@
                     <br>
                     <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Memories of the Future</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Melanie Crean</span> is licensed under a <a rel="license" onclick="window.open('http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US', '_system');">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a>
                     </p>
-                </div>
             </div>
         </div>
         <!-- HTML ENDS -->

@@ -57,6 +57,9 @@ var app = {
             scrPos: null,
             hit: 0,
             currPoet: -1
+        },
+        p_map: {
+            currData: null
         }
     },
 
@@ -219,7 +222,7 @@ var mapView = {
                     .bindLabel(nodeID.toString(), {
                         noHide: true
                     })
-                    .bindPopup('<a onclick="setCurrData(' + i + ');" href="#detailView">  <div id="chevron"></div>    <div class="contextualView">' + v.author + '<br>' + v.address + '</div></a>')
+                    .bindPopup('<a onclick="mapView.setCurrDataOnMap(' + i + ');" href="#p_detail">  <div id="chevron"></div>    <div class="contextualView">' + v.author + '<br>' + v.address + '</div></a>')
                     .addTo(mapView.map);
         });
     },
@@ -232,10 +235,16 @@ var mapView = {
                 UGCNode[i] = L.marker([v.lat + 0.001, v.lng], {
                     icon: mapView.UGCIcon
                 })
-                    .bindPopup('<a onclick="setCurrUGCData(' + i + ');" href="#UGCPoemView"><div id="chevron"></div><div class="contextualView">' + v.title + '</div></a>')
+                    .bindPopup('<a onclick="mapView.setCurrUGCData(' + i + ');" href="#p_ugcDetail"><div id="chevron"></div><div class="contextualView">' + v.title + '</div></a>')
                     .addTo(mapView.map);
             }
         });
+    },
+    setCurrDataOnMap: function(i) {
+        app.currData = i;
+    },
+    setCurrUGCData: function() {
+
     },
     videoIcon: L.icon({
         iconUrl: 'js/vendor/images/marker-icon-2x.png',
@@ -298,6 +307,39 @@ var detailMap = {
     }
 };
 
+// UGC MAPVIEW ////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+var UGCMapView = {
+    map: null,
+    lat: null,
+    lng: null,
+    init: function() {
+        this.map = new L.Map('ugcMap', {
+            center: [40.816911, -73.887223],
+            minZoom: 14,
+            zoom: 15,
+            zoomControl: false
+        });
+        // set map bound
+        this.map.setMaxBounds(bounds);
+        // user
+        L.tileLayer('http://a.tiles.mapbox.com/v3/palaa159.gaehc27p/{z}/{x}/{y}.png', {
+            detectRetina: true,
+            reuseTiles: true
+        }).addTo(this.map);
+        $('#ugcMap').animate({
+            opacity: 1
+        });
+    },
+    capture: function() {
+        var centerW = $('#ugcMap').width() / 2,
+            centerH = $('#ugcMap').height() / 2 - 10;
+        this.lat = this.map.containerPointToLatLng([centerW, centerH]).lat;
+        this.lng = this.map.containerPointToLatLng([centerW, centerH]).lng;
+        misc.warn('@@@ capture >>> ' + this.lat + ', ' + this.lng);
+    }
+};
+
 //////////// Parse ////////////
 var parse = {
     videoObj: Parse.Object.extend('firstPhase'),
@@ -348,7 +390,21 @@ var parse = {
             approval: true
         }, {
             success: function(object) {
-                navigator.notification.alert(
+                if(sys.os == 'web') {
+                    alert('success UGC');
+                    // fetch new data
+                        misc.warn('### begin callback');
+                        // fetch UGC
+                        app.UGCData.push({
+                            lat: lat,
+                            lng: lng,
+                            title: title,
+                            content: ugcContent,
+                            approval: true
+                        });
+                        $.mobile.navigate('#p_map');
+                } else {
+                    navigator.notification.alert(
                     'Thank you for your contribution',
                     function() {
                         // fetch new data
@@ -361,10 +417,12 @@ var parse = {
                             content: ugcContent,
                             approval: true
                         });
-                        $.mobile.navigate('#mapView');
+                        $.mobile.navigate('#p_map');
                     },
                     'Memories of the Future',
                     'OK');
+                }
+                
             },
             error: function(model, err) {
                 navigator.notification.alert(

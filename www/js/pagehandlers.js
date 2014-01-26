@@ -50,14 +50,14 @@ $(document).on("pageinit", "#p_poets", function() {
     listView.deployListView();
     // listener
     $('li.ui-block-a').on('tap', function() {
-            app.pageSilo.p_poets.hit++;
-            if (app.pageSilo.p_poets.hit == 2) {
-                misc.warn('scroll top');
-                $('#p_poets').animate({
-                    scrollTop: 0
-                }, 500);
-                app.pageSilo.p_poets.hit = 0;
-            }
+        app.pageSilo.p_poets.hit++;
+        if (app.pageSilo.p_poets.hit == 2) {
+            misc.warn('scroll top');
+            $('#p_poets').animate({
+                scrollTop: 0
+            }, 500);
+            app.pageSilo.p_poets.hit = 0;
+        }
     });
 
     misc.centerObj('#locatingBox');
@@ -177,6 +177,49 @@ $(document).on("pageshow", "#p_map", function() {
 $(document).on('pagehide', '#p_map', function() {
     misc.log('### hiding >>> mapView');
     // mapView.map.remove();
+});
+
+// CREATE ////////////////////////////////////////////////////////////////
+$(document).on('pagecreate', '#p_create', function() {
+    misc.log('### create >> create');
+    misc.centerObj('#crosshair');
+    UGCMapView.init();
+});
+$(document).on("pageshow", "#p_create", function() {
+    misc.log('### show >>> create');
+    $('#ugcMap').css({
+        'height': app.h
+    });
+    UGCMapView.map.invalidateSize();
+});
+// UGC ADD ////////////////////////////////////////////////////////////////
+$(document).on("pagecreate", "#p_addInput", function() {
+    misc.log('### create >>> ugc add');
+    $('#btnCreateUgc').on('tap', function(event) {
+        event.preventDefault();
+        misc.log('### processing UGC');
+        ugcTitle = $('#ugcTitle').val();
+        ugcContent = $('#ugcContent').val();
+        // check
+        if (ugcTitle.length > 5 && ugcContent.length > 5) {
+            // store
+            parse.storeUGC(UGCMapView.lat, UGCMapView.lng, ugcTitle, ugcContent);
+        } else {
+            if (sys.os == 'web') {
+                alert('error UGC');
+            } else {
+                navigator.notification.alert(
+                    'Your input is too short. Please try again.',
+                    function() {},
+                    'Memories of the Future',
+                    'OK');
+            }
+
+        }
+    });
+});
+$(document).on("pageshow", "#p_addInput", function() {
+    misc.log('### show >>> ugc add');
 });
 
 // INFO //
