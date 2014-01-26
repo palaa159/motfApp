@@ -20,30 +20,21 @@ body {
     margin:0px;
     padding:0px;
     width:100%;
-}
-
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+    /*overflow: hidden;*/
 }
 
 /*starts here*/
 
+.ui-page { 
+    -webkit-backface-visibility: hidden; 
+}
 
 .fullHeight {
-    height: 100%;
+    width: 100%;
+    /*height: 100%;*/
+    overflow-y: scroll;
+    position: absolute;
+    -webkit-overflow-scrolling: touch;
 }
 
 .motf-tab-btn-active {
@@ -56,10 +47,60 @@ body {
     width: 300px;
 }
 
-#map { 
-    position:absolute; 
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+.map {
+    height: calc(100% - 80px);
+}
+
+#map, #ugcMap {
+    position:absolute !important;
+    top:0px !important;
+    left:0 !important;
+    overflow: hidden !important;
+    width:100% !important;
+    height:100% !important;
+    opacity: 1;
+}
+
+#detailNodeMap {
+    overflow:hidden !important;
+    margin-top: 15px;
+    height: 130px;
+    border-radius: 0px;
+}
+
+#locatingBox {
+    background: rgba(255,255,255,0.6);
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    width: 250px;
+    text-align: center;
+}
+
+.contextualView {
+    font-size: 1.3em;
+}
+
+#detailNodeVideo {
+    background: black;
+    overflow: hidden;
+}
+
+/*hide leaflet attr*/
+.leaflet-control-attribution {
+    display: none;
+}
+
+#clientLocate {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+}
+
+#menuContent {
+    -webkit-overflow-scrolling: touch;
+}
+
+.leaflet-popup-close-button {
+    display: none;
 }

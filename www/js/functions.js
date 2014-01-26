@@ -47,3 +47,10 @@ var misc = {
 		return str.replace(new RegExp(find, 'g'), replace);
 	}
 };
+
+$(document).on('mobileinit', function() {
+	// Setting #container div as a jqm pageContainer
+	// $.mobile.pageContainer = $('#container');
+	$.mobile.page.prototype.options.domCache = true;
+	misc.log('### loading >>> jQUery Mobile');
+});

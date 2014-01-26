@@ -2,29 +2,27 @@
 $(document).on('scrollstop', function() {
     app.scrPos = $(window).scrollTop();
     misc.log(app.scrPos);
-    if (app.currPage == 'Poets') {
+    if (app.currPage == 'p_poets') {
         app.pageSilo.p_poets.scrPos = app.scrPos;
     }
 });
 // WHEN click navbar
 $(document).on("pageshow", "[data-role='page']", function() {
-    if($(this).jqmData("title") !== 'Poet Detail') {
+    if ($(this).jqmData("title") !== 'p_detail') {
         $("[data-role='navbar'] a").removeClass("motf-tab-btn-active");
-    // if double hit the button
-    // scroll to top
-    app.currPage = $(this).jqmData("title");
-    if (app.currPage !== 'Poets') {
-        app.pageSilo.p_poets.hit = 0;
-    } else {
-    }
-    // misc.log(app.currPage);
-    // Add active class to app.currPage nav button
-    $("[data-role='navbar'] a").each(function(i, v) {
-        if ($(this).text() === app.currPage) {
-            misc.log($(this).text());
-            $(this).addClass('motf-tab-btn-active');
-        }
-    });
+        app.currPage = $(this).jqmData("title");
+        if (app.currPage !== 'p_poets') {
+            app.pageSilo.p_poets.hit = 0;
+        } else {}
+        // misc.log(app.currPage);
+        // Add active class to app.currPage nav button
+        $("[data-role='navbar'] a").each(function(i, v) {
+            // misc.log($(this).attr('href'));
+            if ($(this).attr('href') === '#' + app.currPage) {
+                // misc.log($(this).attr('data-title'));
+                $(this).addClass('motf-tab-btn-active');
+            }
+        });
     }
 });
 
@@ -55,8 +53,8 @@ $(document).on('pageshow', '#p_offline', function() {
 $(document).on("pageinit", "#p_poets", function() {
     $("[data-role='navbar']").show();
     misc.log('init >>> Poets');
-    mapView.deployListView();
 
+    listView.deployListView();
     // listener
     $('li.ui-block-a').on('tap', function() {
         if (app.pageSilo.p_poets.scrPos > 0) {
@@ -70,11 +68,17 @@ $(document).on("pageinit", "#p_poets", function() {
             }
         }
     });
+
+    misc.centerObj('#locatingBox');
+    mapView.init();
+    mapView.feedVideo();
 });
-$(document).on('pagebeforeshow', '#p_poets', function() {
+
+$(document).on('pageshow', '#p_poets', function() {
     app.pageSilo.p_poets.currPoet = -1;
     // Silent Scroll
-    misc.log('pageshow ' + '#p_poets');
+    misc.log('pageshow #p_poets');
+    misc.log('scroll to ' + app.pageSilo.p_poets.scrPos);
     $.mobile.silentScroll(app.pageSilo.p_poets.scrPos);
 });
 
@@ -95,8 +99,17 @@ $(document).on('pageinit', '#p_detail', function() {
     $('#backToBefore').on('tap', function() {
         $.mobile.navigate('#' + app.currPage);
     });
+    // DETAIL MAP TAP
+    $('#detailNodeMap').on('tap', function() {
+        $.mobile.navigate('#p_map');
+        mapView.zoom(app.currData);
+    });
 });
 $(document).on('pageshow', '#p_detail', function() {
+    detailMap.map.invalidateSize();
+});
+
+$(document).on('pagebeforeshow', '#p_detail', function() {
     misc.log('show >>> detailView');
     detailMap.init();
     // for vimeo player
@@ -147,12 +160,32 @@ $(document).on('pageshow', '#p_detail', function() {
             'src': url
         });
     $('#detailNodeVideo').show();
+    var rawPoem = app.videoData[app.currData].poem,
+        realPoem = misc.replaceAll('\n', '<br>', rawPoem);
+    $('.p_detail_poem').html(realPoem);
 });
 
 // MAP ////////////////////////////////////////////////////////////////
+
 $(document).on("pagecreate", "#p_map", function() {
-    misc.log('init >>> mapView');
-    // misc.centerObj('#locatingBox');
-    // mapView.init();
-    // mapView.feedVideo();
+    misc.log('### init >>> mapView');
+    $('#clientLocate').on('click', function() {
+        mapView.mapHalfOpacity();
+        $('#locatingBox').fadeIn();
+        mapView.clientLocate();
+    });
+});
+$(document).on("pageshow", "#p_map", function() {
+    $('#map').css({
+        height: app.h
+    });
+    mapView.map.invalidateSize();
+    misc.log('### show >>> mapView');
+    mapView.feedUGC();
+    mapView.detectUserLocation();
+    app.currPage = 'p_map';
+});
+$(document).on('pagehide', '#p_map', function() {
+    misc.log('### hiding >>> mapView');
+    // mapView.map.remove();
 });

@@ -9,15 +9,13 @@
     <link rel="stylesheet" type="text/css" href="css/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="css/leaflet.label.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/style.css" /> -->
     <title>motfApp 2.0</title>
 </head>
 <body>
     <!-- HTML STARTS -->
     <!-- landing page #p_landing -->
     <div data-role="page" id="p_landing">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
-        </div>
-
         <div role="main" class="ui-content fullHeight">
             <div id="fetching">
                 <img class="loaderGif" src="css/images/ajax-loader.gif">
@@ -29,7 +27,6 @@
     <!-- landing page #p_offline -->
     <div data-role="page" id="p_offline">
         <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
-            <h1>Default header / sometimes no need</h1>
         </div>
 
         <div role="main" class="ui-content fullHeight">
@@ -38,9 +35,9 @@
     </div>
 
     <!-- list view page #p_list -->
-    <div data-role="page" id="p_poets" data-title="Poets"> 
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
-         <h1>Default header / sometimes no need</h1>
+    <div data-role="page" id="p_poets" data-title="p_poets"> 
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
+            <h1>POET LIST</h1>
         </div>
 
         <div role="main" class="ui-content fullHeight">
@@ -63,26 +60,26 @@
         </div>
     </div>
     <!-- map page #p_map -->
-    <div data-role="page" id="p_map" data-title="Map">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+    <div data-role="page" id="p_map" data-title="p_map">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
             <h1>Explore Map</h1>
         </div>
 
-        <div role="main" class="ui-content fullHeight">
+        <div role="main" class="ui-content map fullHeight">
             <div id="map"></div>
         </div>
+        <div id="locatingBox">Please hold on while we're locating you</div>
     </div>
 
-    <!--   #p_detail -->
-    <div data-role="page" id="p_detail" data-title="Poet Detail" class="gradient-background2">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+    <!--  p_detail #p_detail -->
+    <div data-role="page" id="p_detail" data-title="p_detail" class="gradient-background2">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
+            <a id="backToBefore" class="ui-btn-left ui-btn-icon-left ui-icon-back">Back</a>
             <span class="ui-title">POET</span>
         </div>
         <div data-role="content" class="scrollable detailScrollable">
             <div id="detailNodeVideo">
-                <video id="ytplayer" class="video-js vjs-default-skin" width="" height="" data-setup="{}">
-                    <source src="" type='video/mp4'>
-                </video>
+                <iframe id="ytplayer" type="text/html" width="" height="" src="" frameborder="0" webkit-playsinline></iframe>
             </div>
 
             <div id="detailContainer">
@@ -97,14 +94,20 @@
                 <div id="detailNodeAddress"></div>
                 <center><div id="detailNodeMap"></div></center>
             </div>
-                <a href="#poemView" id="poemButton" data-role="button" data-transition="fade" data-inline="true">Read Poem ></a>
+            <!-- Collapse -->
+            <div data-role="collapsible-set" data-theme="a" data-content-theme="a" data-mini="true">
+                <div data-role="collapsible">
+                    <h3>Read poem</h3>
+                    <p class="p_detail_poem">Poem</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- create page #p_create -->
-    <div data-role="page" id="p_create" data-title="Create">
+    <div data-role="page" id="p_create" data-title="p_create">
         <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
-            <h1>Default header / sometimes no need</h1>
+            <h1>CREATE</h1>
         </div>
 
         <div role="main" class="ui-content fullHeight">
@@ -113,9 +116,9 @@
     </div>
 
     <!-- info page #p_info -->
-    <div data-role="page" id="p_info" data-title="Info">
+    <div data-role="page" id="p_info" data-title="p_info">
         <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
-            <h1>Default header / sometimes no need</h1>
+            <h1>INFO</h1>
         </div>
 
         <div role="main" class="ui-content fullHeight">
@@ -136,8 +139,8 @@
         </div><!-- /navbar -->
     </div>
     <!-- SCRIPTS -->
-    <script type="text/javascript" src="js/functions.js"></script>
     <script type="text/javascript" src="js/vendor/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
     <script type="text/javascript" src="js/vendor/jquery.mobile-1.4.0.min.js"></script>
     <script type="text/javascript" src="js/vendor/fastclick.min.js"></script>
     <script type="text/javascript" src="js/vendor/parse.min.js"></script>

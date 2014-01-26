@@ -4,6 +4,9 @@ var sys = {
     os: null,
     // application Constructor
     init: function() {
+        // window.addEventListener('load', function() {
+        //     FastClick.attach(document.body);
+        // });
         // CHECK SYSTEM
         sys.os = misc.checkSystem();
         if (sys.os == 'web') { // IF WEB, then init web
@@ -16,18 +19,28 @@ var sys = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     onDeviceReady: function() {
+        // FastClick.attach(document.body);
         app.initMobile();
-        // sys.receivedEvent('deviceready');
+        sys.receivedEvent('geolocation');
     },
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+        // alert(id);
+        var onSuccess = function(position) {
+            alert('Latitude: ' + position.coords.latitude + '\n' +
+                'Longitude: ' + position.coords.longitude + '\n' +
+                'Altitude: ' + position.coords.altitude + '\n' +
+                'Accuracy: ' + position.coords.accuracy + '\n' +
+                'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+                'Heading: ' + position.coords.heading + '\n' +
+                'Speed: ' + position.coords.speed + '\n' +
+                'Timestamp: ' + position.timestamp + '\n');
+        };
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
+        function onError(error) {
+            alert('code: ' + error.code + '\n' +
+                'message: ' + error.message + '\n');
+        }
+        // navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
 };
 
@@ -56,6 +69,12 @@ var app = {
     },
     initMobile: function() {
         misc.warn('MOBILE DEBUGGING');
+        if(sys.os == 'ios7') {
+            $('.ui-header-custom').css({
+                top: '-1px',
+                'padding-top': '18px'
+            });
+        }
         this.initApp();
     },
     initApp: function() {
@@ -70,38 +89,7 @@ var app = {
     }
 };
 
-//////////// MapView ////////////
-var southWest = new L.LatLng(40.791459, -73.858608),
-    northEast = new L.LatLng(40.830437, -73.904785),
-    bounds = new L.LatLngBounds(southWest, northEast);
-var mapView = {
-    lat: null,
-    lng: null,
-    newLatLng: null,
-    map: null,
-    myPos: null,
-    init: function() {
-        this.map = new L.map('map', {
-            center: [40.816911, -73.887223],
-            minZoom: 14,
-            zoom: 15,
-            zoomControl: false
-        });
-        // set map bound
-        this.map.setMaxBounds(bounds);
-
-        // user
-        L.tileLayer('http://a.tiles.mapbox.com/v3/palaa159.gaehc27p/{z}/{x}/{y}.png', {
-            detectRetina: true,
-            reuseTiles: true
-        }).addTo(mapView.map);
-        mapView.myPos = new L.circleMarker([0, 0], {
-            stroke: false,
-            fillColor: '#fb0005',
-            fillOpacity: 1,
-            radius: 5
-        }).bindPopup('This is YOU').addTo(mapView.map);
-    },
+var listView = {
     deployListView: function() {
         $.each(app.videoData, function(i, v) {
         // misc.log('cloning');
@@ -132,6 +120,44 @@ var mapView = {
     });
     // remove for clone
     $('#forClone').remove();
+    }
+};
+
+//////////// MapView ////////////
+var southWest = new L.LatLng(40.791459, -73.858608),
+    northEast = new L.LatLng(40.830437, -73.904785),
+    bounds = new L.LatLngBounds(southWest, northEast);
+var mapView = {
+    lat: null,
+    lng: null,
+    newLatLng: null,
+    map: null,
+    myPos: null,
+    zoom: function(num) {
+        mapView.map.setView(app.videoData[num].geoData, 16);
+        console.log('zoom to ' + app.videoData[num].geoData);
+    },
+    init: function() {
+        this.map = new L.map('map', {
+            center: [40.816911, -73.887223],
+            minZoom: 14,
+            zoom: 15,
+            zoomControl: false
+        });
+        // set map bound
+        this.map.setMaxBounds(bounds);
+
+        // user
+        L.tileLayer('http://a.tiles.mapbox.com/v3/palaa159.gaehc27p/{z}/{x}/{y}.png', {
+            detectRetina: true,
+            reuseTiles: true
+        }).addTo(mapView.map);
+        mapView.myPos = new L.circleMarker([0, 0], {
+            stroke: false,
+            fillColor: '#fb0005',
+            fillOpacity: 1,
+            radius: 5
+        }).bindPopup('This is YOU').addTo(mapView.map);
     },
     detectUserLocation: function() {
         misc.log('### detecting location');
@@ -154,7 +180,15 @@ var mapView = {
                 2: 'Position unavailable',
                 3: 'Request timeout'
             };
-            alert("Error: " + errors[error.code]);
+            if(sys.os = 'web') {
+                alert('Geolocation error');
+            } else {
+                navigator.notification.alert('Error: Geolocation not detected',
+                function() {
+                },
+                'Memories of the Future',
+                'Dismiss');
+            }
         }
     },
     mapToPosition: function(position) {
@@ -270,6 +304,7 @@ var parse = {
     UGCObj: Parse.Object.extend('ugc'),
     video: null,
     UGC: null,
+
     init: function() {
         Parse.initialize('LcwUW1mhSbxh25gcPfHKFENrbt6YegsB8bxF5VJZ', 'lewWw2HFlo1kk9qnJy1y1OrWfZGVNjSTjAfqRF8e');
         this.video = new this.videoObj();
