@@ -57,6 +57,9 @@ var app = {
             scrPos: null,
             hit: 0,
             currPoet: -1
+        },
+        p_map: {
+            currData: null
         }
     },
 
@@ -219,7 +222,7 @@ var mapView = {
                     .bindLabel(nodeID.toString(), {
                         noHide: true
                     })
-                    .bindPopup('<a onclick="setCurrData(' + i + ');" href="#detailView">  <div id="chevron"></div>    <div class="contextualView">' + v.author + '<br>' + v.address + '</div></a>')
+                    .bindPopup('<a onclick="mapView.setCurrDataOnMap(' + i + ');" href="#p_detail">  <div id="chevron"></div>    <div class="contextualView">' + v.author + '<br>' + v.address + '</div></a>')
                     .addTo(mapView.map);
         });
     },
@@ -232,10 +235,16 @@ var mapView = {
                 UGCNode[i] = L.marker([v.lat + 0.001, v.lng], {
                     icon: mapView.UGCIcon
                 })
-                    .bindPopup('<a onclick="setCurrUGCData(' + i + ');" href="#UGCPoemView"><div id="chevron"></div><div class="contextualView">' + v.title + '</div></a>')
+                    .bindPopup('<a onclick="mapView.setCurrUGCData(' + i + ');" href="#p_ugcDetail"><div id="chevron"></div><div class="contextualView">' + v.title + '</div></a>')
                     .addTo(mapView.map);
             }
         });
+    },
+    setCurrDataOnMap: function(i) {
+        app.currData = i;
+    },
+    setCurrUGCData: function() {
+
     },
     videoIcon: L.icon({
         iconUrl: 'js/vendor/images/marker-icon-2x.png',

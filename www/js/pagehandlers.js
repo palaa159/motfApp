@@ -1,11 +1,4 @@
 //////////// Page handlers ////////////
-$(document).on('scrollstop', function() {
-    app.scrPos = $(window).scrollTop();
-    misc.log(app.scrPos);
-    if (app.currPage == 'p_poets') {
-        app.pageSilo.p_poets.scrPos = app.scrPos;
-    }
-});
 // WHEN click navbar
 $(document).on("pageshow", "[data-role='page']", function() {
     if ($(this).jqmData("title") !== 'p_detail') {
@@ -57,16 +50,14 @@ $(document).on("pageinit", "#p_poets", function() {
     listView.deployListView();
     // listener
     $('li.ui-block-a').on('tap', function() {
-        if (app.pageSilo.p_poets.scrPos > 0) {
             app.pageSilo.p_poets.hit++;
             if (app.pageSilo.p_poets.hit == 2) {
                 misc.warn('scroll top');
-                $("html, body").animate({
+                $('#p_poets').animate({
                     scrollTop: 0
                 }, 500);
                 app.pageSilo.p_poets.hit = 0;
             }
-        }
     });
 
     misc.centerObj('#locatingBox');
@@ -78,8 +69,6 @@ $(document).on('pageshow', '#p_poets', function() {
     app.pageSilo.p_poets.currPoet = -1;
     // Silent Scroll
     misc.log('pageshow #p_poets');
-    misc.log('scroll to ' + app.pageSilo.p_poets.scrPos);
-    $.mobile.silentScroll(app.pageSilo.p_poets.scrPos);
 });
 
 // POET DETAIL ////////////////////////////////////////////////////////////////
@@ -188,4 +177,15 @@ $(document).on("pageshow", "#p_map", function() {
 $(document).on('pagehide', '#p_map', function() {
     misc.log('### hiding >>> mapView');
     // mapView.map.remove();
+});
+
+// INFO //
+$(document).on('pagecreate', '#p_info', function() {
+    misc.log('@@@ create >>> menu');
+    $('#ytplayerIntro').attr({
+        width: '100%',
+        height: '100%' * 9 / 16,
+        src: 'http://www.youtube.com/embed/' + app.videoData[0].url + '?controls=0&rel=0&showinfo=0&modestbranding=1',
+        'webkit-playsinline': ' '
+    });
 });

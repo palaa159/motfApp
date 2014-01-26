@@ -1,154 +1,174 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
-    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.0.css" />
-    <link rel="stylesheet" type="text/css" href="css/leaflet.css" />
-    <link rel="stylesheet" type="text/css" href="css/leaflet.label.css" />
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="css/style.css" /> -->
-    <title>motfApp 2.0</title>
-</head>
-<body>
-    <!-- HTML STARTS -->
-    <!-- landing page #p_landing -->
-    <div data-role="page" id="p_landing">
-        <div role="main" class="ui-content fullHeight">
-            <div id="fetching">
-                <img class="loaderGif" src="css/images/ajax-loader.gif">
-                <h5>Retrieving data ... </h5>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.0.css" />
+        <link rel="stylesheet" type="text/css" href="css/leaflet.css" />
+        <link rel="stylesheet" type="text/css" href="css/leaflet.label.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <!-- <link rel="stylesheet" type="text/css" href="css/style.css" /> -->
+        <title>motfApp 2.0</title>
+    </head>
+    <body>
+        <!-- HTML STARTS -->
+        <!-- landing page #p_landing -->
+        <div data-role="page" id="p_landing">
+            <div role="main" class="ui-content fullHeight">
+                <div id="fetching">
+                    <img class="loaderGif" src="css/images/ajax-loader.gif">
+                    <h5>Retrieving data ... </h5>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- landing page #p_offline -->
-    <div data-role="page" id="p_offline">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+        <!-- landing page #p_offline -->
+        <div data-role="page" id="p_offline">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+            </div>
+            <div role="main" class="ui-content fullHeight">
+                <div id="offlineMessage">
+                    <center>
+                    Cannot connect to the Memories of the Future servers.<br/><br/>
+                    Please check your internet connection and try again.
+                    </center>
+                </div>
+            </div>
         </div>
-
-        <div role="main" class="ui-content fullHeight">
-            <h1>offine page</h1>
-        </div>
-    </div>
-
-    <!-- list view page #p_list -->
-    <div data-role="page" id="p_poets" data-title="p_poets"> 
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
-            <h1>POET LIST</h1>
-        </div>
-
-        <div role="main" class="ui-content fullHeight">
-            <ul data-role="listview" data-split-icon="gear" data-split-theme="d" class="ui-listview">
+        <!-- list view page #p_list -->
+        <div data-role="page" id="p_poets" data-title="p_poets">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
+                <h1>POET LIST</h1>
+            </div>
+            <div role="main" class="ui-content fullHeight">
+                <ul data-role="listview" data-split-icon="gear" data-split-theme="d" class="ui-listview">
                     <li id="forClone" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="false" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li ui-li-has-alt ui-btn-up-cs">
                         <div class="ui-btn-inner ui-li ui-li-has-alt">
                             <div class="ui-btn-text">
                                 <a href="#p_detail" class="ui-link-inherit" data-transition="slide">
-                                    <div class="detailText">
-                                        <h3 id="nodeSeq" class="ui-li-heading"></h3>
-                                        <h3 id="nodeAuthor" class="ui-li-heading"></h3>
-                                        <p id="nodeTitle" class="ui-li-heading"></p>
-                                        <p id="nodeAddress" class="ui-li-desc"></p>
-                                    </div>
+                                <div class="detailText">
+                                    <h3 id="nodeSeq" class="ui-li-heading"></h3>
+                                    <h3 id="nodeAuthor" class="ui-li-heading"></h3>
+                                    <p id="nodeTitle" class="ui-li-heading"></p>
+                                    <p id="nodeAddress" class="ui-li-desc"></p>
+                                </div>
                                 </a>
                             </div>
                         </div>
                     </li>
                 </ul>
-        </div>
-    </div>
-    <!-- map page #p_map -->
-    <div data-role="page" id="p_map" data-title="p_map">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
-            <h1>Explore Map</h1>
-        </div>
-
-        <div role="main" class="ui-content map fullHeight">
-            <div id="map"></div>
-        </div>
-        <div id="locatingBox">Please hold on while we're locating you</div>
-    </div>
-
-    <!--  p_detail #p_detail -->
-    <div data-role="page" id="p_detail" data-title="p_detail" class="gradient-background2">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
-            <a id="backToBefore" class="ui-btn-left ui-btn-icon-left ui-icon-back">Back</a>
-            <span class="ui-title">POET</span>
-        </div>
-        <div data-role="content" class="scrollable detailScrollable">
-            <div id="detailNodeVideo">
-                <iframe id="ytplayer" type="text/html" width="" height="" src="" frameborder="0" webkit-playsinline></iframe>
             </div>
-
-            <div id="detailContainer">
-                <div id="detailCircle">
-                    <div id="detailSeqNum"></div>
+        </div>
+        <!-- map page #p_map -->
+        <div data-role="page" id="p_map" data-title="p_map">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
+                <h1>Explore Map</h1>
+            </div>
+            <div role="main" class="ui-content map fullHeight">
+                <div id="map"></div>
+            </div>
+            <div id="locatingBox">Please hold on while we're locating you</div>
+        </div>
+        <!--  p_detail #p_detail -->
+        <div data-role="page" id="p_detail" data-title="p_detail" class="gradient-background2">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed ui-header-custom">
+                <a id="backToBefore" class="ui-btn-left ui-btn-icon-left ui-icon-back">Back</a>
+                <span class="ui-title">POET</span>
+            </div>
+            <div data-role="content" class="scrollable detailScrollable">
+                <div id="detailNodeVideo">
+                    <iframe id="ytplayer" type="text/html" width="" height="" src="" frameborder="0" webkit-playsinline></iframe>
                 </div>
-                <div id="detailNodeDesc"></div>
-            </div>
-            <div id="detailNodeTitle"></div>
-
-            <div>
-                <div id="detailNodeAddress"></div>
-                <center><div id="detailNodeMap"></div></center>
-            </div>
-            <!-- Collapse -->
-            <div data-role="collapsible-set" data-theme="a" data-content-theme="a" data-mini="true">
-                <div data-role="collapsible">
-                    <h3>Read poem</h3>
-                    <p class="p_detail_poem">Poem</p>
+                <div id="detailContainer">
+                    <div id="detailCircle">
+                        <div id="detailSeqNum"></div>
+                    </div>
+                    <div id="detailNodeDesc"></div>
+                </div>
+                <div id="detailNodeTitle"></div>
+                <div>
+                    <div id="detailNodeAddress"></div>
+                    <center><div id="detailNodeMap"></div></center>
+                </div>
+                <!-- Collapse -->
+                <div data-role="collapsible-set" data-theme="a" data-content-theme="a" data-mini="true">
+                    <div data-role="collapsible">
+                        <h3>Read poem</h3>
+                        <p class="p_detail_poem">Poem</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- create page #p_create -->
-    <div data-role="page" id="p_create" data-title="p_create">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
-            <h1>CREATE</h1>
+        <!-- create page #p_create -->
+        <div data-role="page" id="p_create" data-title="p_create">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+                <h1>CREATE</h1>
+            </div>
+            <div role="main" class="ui-content fullHeight">
+                <h1>create page</h1>
+            </div>
         </div>
-
-        <div role="main" class="ui-content fullHeight">
-            <h1>create page</h1>
+        <!-- info page #p_info -->
+        <div data-role="page" id="p_info" data-title="p_info">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
+                <h1>INFO</h1>
+            </div>
+            <div role="main" class="ui-content fullHeight">
+                <div class="mainInfo">
+                    <center><img id="paddedImage" src="img/header_stacked.png"></center>
+                    <p>A location based cinema project based in the Hunts Point neighborhood of the South Bronx, using memories called back from the past to understand the nature of the present moment, and project a re-imagined version of that moment into the future.
+                    </p>
+                    <center>
+                        <iframe id="ytplayerIntro" type="text/html" width="" height="" src="" frameborder="0" webkit-playsinline></iframe>
+                    </center>
+                    <p>
+                        The Memories of the Future project explores how communities can discuss and express the potential for transcending issues of urban spatial injustice. Sixteen spoken word poets, writing from the point of view of different locations throughout Hunts Point in the South Bronx, speak as interpreters, testifying on behalf of the locations themselves. Together they weave a spatial narrative that forms the basis of the mobile application, beginning at the Hunts Point train station with a view of the past, and ending at Bronx River with a look toward the future.
+                    </p>
+                    <p>
+                        The location-aware mobile application allows each video vignette in the collectively written story to be viewed in the particular location on which it is based, where it was ultimately filmed.  Subtle visual effects in the videos alter the landscape, facilitating the viewer standing in that location to see it anew.  Hunts Point is one of several urban ordinary, extraordinary spaces across the United States, which exemplify the resilience of communities on the edge of dramatic change. If urban landscapes are monuments to time, etched with memory, then certainly they can be read, and if necessary, re-written, to project their texts into the future.
+                    </p>
+                    <img src="img/credits.png">
+                    <p>Creator and Director:<br>Melanie Crean</p>
+                    <p>Producer:<br>Jordan Parnass</p>
+                    <p>Visual Effects and Compositing:<br>Enrique Maitland</p>
+                    <p>Technical Director:<br>Dimitri Stancioff<p>
+                    <p>App Developers:<br>Jane Friedhoff<br>Apon Palanuwech</p>
+                    <p>Research, Casting & Production Support:<br> Melissa Lomba, Majora Carter Group LLC</p>
+                    <img src="img/license.png">
+                    <p>
+                    <a onclick="window.open('http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US', '_system');" rel="license">
+                    <img alt="Creative Commons License" style="border-width:0" src="img/cc88x31.png">
+                    </a>
+                    <br>
+                    <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Memories of the Future</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Melanie Crean</span> is licensed under a <a rel="license" onclick="window.open('http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US', '_system');">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a>
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <!-- info page #p_info -->
-    <div data-role="page" id="p_info" data-title="p_info">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="ui-header ui-header-fixed">
-            <h1>INFO</h1>
-        </div>
-
-        <div role="main" class="ui-content fullHeight">
-            <h1>info page</h1>
-        </div>
-    </div>
-
-    <!-- HTML ENDS -->
-    <!-- PERSISTENT TOOLBAR -->
-    <div data-role="footer" data-position="fixed" data-theme="a" role="contentinfo" class="ui-footer ui-footer-fixed slideup ui-bar-a" data-tap-toggle="false">
-        <div data-role="navbar" class="ui-navbar" role="navigation">
-            <ul class="ui-grid-c">
-                <li class="ui-block-a"><a href="#p_poets" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Poets</a></li>
-                <li class="ui-block-b"><a href="#p_map" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Map</a></li>
-                <li class="ui-block-c"><a href="#p_create" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Create</a></li>
-                <li class="ui-block-d"><a href="#p_info" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Info</a></li>
-            </ul>
-        </div><!-- /navbar -->
-    </div>
-    <!-- SCRIPTS -->
-    <script type="text/javascript" src="js/vendor/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="js/functions.js"></script>
-    <script type="text/javascript" src="js/vendor/jquery.mobile-1.4.0.min.js"></script>
-    <script type="text/javascript" src="js/vendor/fastclick.min.js"></script>
-    <script type="text/javascript" src="js/vendor/parse.min.js"></script>
-    <script type="text/javascript" src="js/vendor/leaflet.js"></script>
-    <script type="text/javascript" src="js/vendor/leaflet.label.js"></script>
-    <!-- CORDOVA -->
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/pagehandlers.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-</body>
-</html>
+        <!-- HTML ENDS -->
+        <!-- PERSISTENT TOOLBAR -->
+        <div data-role="footer" data-position="fixed" data-theme="a" role="contentinfo" class="ui-footer ui-footer-fixed slideup ui-bar-a" data-tap-toggle="false">
+            <div data-role="navbar" class="ui-navbar" role="navigation">
+                <ul class="ui-grid-c">
+                    <li class="ui-block-a"><a href="#p_poets" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Poets</a></li>
+                    <li class="ui-block-b"><a href="#p_map" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Map</a></li>
+                    <li class="ui-block-c"><a href="#p_create" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Create</a></li>
+                    <li class="ui-block-d"><a href="#p_info" data-prefetch="true" data-transition="none" class="ui-btn ui-state-persist">Info</a></li>
+                </ul>
+                </div><!-- /navbar -->
+            </div>
+            <!-- SCRIPTS -->
+            <script type="text/javascript" src="js/vendor/jquery-2.0.3.min.js"></script>
+            <script type="text/javascript" src="js/functions.js"></script>
+            <script type="text/javascript" src="js/vendor/jquery.mobile-1.4.0.min.js"></script>
+            <script type="text/javascript" src="js/vendor/fastclick.min.js"></script>
+            <script type="text/javascript" src="js/vendor/parse.min.js"></script>
+            <script type="text/javascript" src="js/vendor/leaflet.js"></script>
+            <script type="text/javascript" src="js/vendor/leaflet.label.js"></script>
+            <!-- CORDOVA -->
+            <script type="text/javascript" src="cordova.js"></script>
+            <script type="text/javascript" src="js/pagehandlers.js"></script>
+            <script type="text/javascript" src="js/index.js"></script>
+        </body>
+    </html>
