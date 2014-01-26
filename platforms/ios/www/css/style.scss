@@ -1,0 +1,444 @@
+/* style.scss */
+@font-face {
+	font-family:GothamLight;
+	src: url("fonts/Gotham-XLight.ttf");
+}
+
+@font-face {
+	font-family:GothamBook;
+	src: url("fonts/Gotham-Book.ttf");
+}
+
+$header-font:GothamBook;
+
+$header-a-color:#ee8423;
+$header-b-color:#d84e37;
+$header-c-color:#cf303c;
+
+$detail-font-size-big:24px;
+$detail-font-size-med:15px;
+
+body {
+	background-color:black;
+}
+
+html, div {
+	text-shadow:none !important;
+	color:white;
+}
+
+/*apon: fix all div text = white, from this part they're gonna be black*/
+#fetching {
+  color: black;
+}
+
+#locatingBox {
+  color: black;
+}
+
+.ui-header {
+	line-height:44px;
+	min-height:44px;
+	padding:0px;
+	background-size:100% !important;
+}
+
+.ui-bar-a {
+	border:1px solid $header-a-color;
+	background:$header-a-color url(../img/header.png) no-repeat center center;
+}
+
+.ui-bar-b {
+	border:1px solid $header-b-color;
+	background:$header-b-color url(../img/header_poets.png) no-repeat center center;
+}
+
+.ui-bar-c {
+	border:1px solid $header-c-color;
+	background:$header-c-color url(../img/header_poet.png) no-repeat center center;
+}
+
+.ui-bar-e {
+	border:1px solid $header-c-color;
+	background:$header-c-color;
+
+	font-weight:bold;
+	font-family:$header-font;
+}
+
+.ui-bar-d {
+	border:none;
+	background:rgba(240, 89, 101, .9);
+	height:60px !important;
+	line-height:60px !important;
+}
+
+.ui-btn {
+	box-shadow:none !important;
+	-webkit-box-shadow:none !important;
+	-moz-box-shadow:none !important;
+	border:none;
+	background-image:none;
+	background-color:transparent;
+	min-height:23px;
+	min-width:23px;
+
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border-radius:0px;
+}
+
+.ui-btn-inner {
+	text-shadow:none;
+	border-top:none !important;
+	border:none;
+	display:inline;
+}
+
+.ui-btn-text {
+	font-family:$header-font;
+	color:#fff;
+}
+
+.ui-btn-d, .ui-btn-inner-d {
+	background-color:transparent;
+	float:right;
+	padding-right:5px;
+	.ui-btn-text {
+		font-family:$header-font;
+		font-size:$detail-font-size-big;
+		text-align:right;
+	}
+}
+
+.ui-btn-e, .ui-btn-inner-e {
+	padding:10px;
+	background-color:$header-a-color;
+	-moz-border-radius:9px;
+    -webkit-border-radius:9px;
+    border-radius:9px;
+    line-height:23px;
+}
+
+li.ui-btn {
+	margin-top:0px;
+	background-size:cover;
+	background-repeat:no-repeat;
+
+	.ui-btn-inner {
+		padding-right:15px;
+		padding-left:15px;
+		margin:0px;
+	}
+}
+
+ul li .ui-link-inherit {
+	background-color:transparent;
+	margin-top:0px;
+	padding:0px !important;
+	height:150px;
+}
+
+.ui-li {
+	padding:0px !important;
+	background-color:transparent;
+	margin-right:2px;
+}
+
+ul.ui-listview {
+	background-color:#2c3e50;
+}
+
+.ui-listview {
+	padding-top:5px;
+}
+
+#detailNodeTitle {
+	border-bottom:1pt solid white;
+	font-family:$header-font;
+	padding-top:8px;
+	padding-bottom:8px;
+	text-align:left;
+	margin-left:40px;
+	margin-right:0px;
+
+
+
+}
+
+
+#detailNodeVideo {
+	margin:0px;
+	margin-top:0px;
+	padding:0px;
+	width:640px;
+}
+
+#detailNodeDesc {
+	font-family:$header-font;
+	font-size:$detail-font-size-big;
+	text-align:left;
+	padding-top:11px;
+	padding-bottom:11px;
+	margin-left:40px;
+
+	margin-right:0px;
+	border-bottom:1pt solid white;
+
+}
+
+#detailNodeAddress {
+	text-align:left;
+	font-family:$header-font;
+	font-size:$detail-font-size-med;
+
+	padding-top:8px;
+	padding-bottom:8px;
+	margin-left:40px;
+	text-align: left;
+
+	margin-right:0px;
+	margin-bottom:0px;
+}
+
+#detailSeqNum {
+	font-size:$detail-font-size-med;
+	width:26px;
+	height:26px;
+	text-align:center;
+	line-height:26px;
+}
+
+#detailPoem {
+	margin-top:15px;
+
+	text-align:center;
+
+	a {
+		font-weight:normal;
+		padding-top:6px;
+		margin:0px;
+		text-decoration:none;
+		text-align:center;
+	}
+
+	.ui-btn-text {
+		padding-top:10px;
+	}
+}
+
+#nodeTitle {
+	font-family:$header-font;
+	font-size:$detail-font-size-med;
+	margin-left:40px;
+}
+
+#nodeAddress {
+	font-size:$detail-font-size-med;
+	padding-top:5px;
+	margin-left:40px;
+}
+
+#nodeAuthor {
+	font-family:$header-font;
+	font-size:$detail-font-size-big;
+	padding-bottom: 0px;
+	margin-top:0px;
+	margin-left:40px;
+
+}
+
+#nodeSeq {
+	font-family:$header-font;
+	font-size:$detail-font-size-big;
+	float:left;
+	margin:0px;
+	min-width:35px;
+	max-width:35px;
+}
+
+#headerImg, #paddedImage {
+	width:100%;
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
+	padding-left:0px;
+	padding-right:0px;
+	padding-top:8px;
+	margin:0px;
+}
+
+#paddedImage {
+	padding-top:0px;
+	margin-top:20px;
+}
+
+div .gradient-background2 {
+	background-image:url(../img/bg-gradient2.png);
+	background-size:100%;
+}
+
+div .gradient-background {
+	background-image:url(../img/bg-gradient.png);
+	background-size:100%;
+}
+
+.detailScrollable {
+	padding-left:0px;
+	padding-right:0px;
+	padding-top:0px;
+}
+
+.ui-content h3, p {
+	text-shadow:none;
+	font-weight:normal;
+	font-family:$header-font;
+	line-height:20px;
+	padding-left:5px;
+}
+
+img #poemButton {
+	padding-top:10px;
+	margin:0px;
+	float:right;
+}
+
+#menu .ui-content {
+	padding-bottom:100px;
+	padding-top:0px;
+}
+
+#menuContent {
+	top:5px;
+}
+
+.mainInfo {
+	margin-top:40px;
+}
+
+.ui-icon {
+    background-color: transparent;
+    box-shadow: none;
+    border-radius:0px;
+	margin:0px !important;
+	width:23px;
+	height:23px;
+	-moz-border-radius:0px;
+    -webkit-border-radius:0px;
+    border-radius:0px;
+}
+
+
+.ui-icon-myapp-list {
+	background: url(../img/view-list.svg) no-repeat 50% 50% !important;
+}
+
+.ui-icon-myapp-about {
+	background: url(../img/information.svg) no-repeat 50% 50% !important;
+}
+
+.ui-icon-myapp-map {
+	background: url(../img/location.svg) no-repeat 50% 50% !important;
+}
+
+.ui-icon-myapp-left {
+	background: url(../img/chevron-left.svg) no-repeat 50% 50% !important;
+}
+
+#detailContainer {
+	position:relative;
+}
+
+#poemButton {
+	float:right;
+	margin-top:20px;
+}
+
+.detailText {
+	height:80px;
+	padding-left:0px;
+	padding-right:0px;
+	padding-top:5px;
+	background-color:rgba(0, 0, 0, .2);
+}
+
+#menu .ui-content {
+	padding-bottom:100px;
+	padding-top:0px;
+}
+
+
+#menuContent {
+	top:5px;
+}
+
+#poemContent {
+	font-family:$header-font;
+	line-height:20px;
+}
+
+.mainInfo {
+	margin-top:40px;
+}
+
+#offlineMessage {
+	background-color:#cf303c;
+	font-family:$header-font;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border-radius:10px;
+	padding:10px;
+}
+
+div #detailCircle {
+	position:absolute;
+	top:8px;
+	left:5px;
+	width:26px;
+	height:26px;
+	float:left;
+	border-radius:50%;
+	border: 1px solid white;
+}
+
+#poemContainer {
+	display:block;
+	margin:0 auto;
+	text-align:center;
+	width:80%;
+}
+
+#poemName {
+	display:block;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	overflow:hidden;
+}
+
+.ui-header-fixed>.ui-btn-icon-notext {
+	top:10px;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+	color:transparent;
+}
+
+.contextualView {
+	color:#0078A8;
+}
+
+.leaflet-popup-content {
+	padding-right:10px;
+}
+
+#chevron {
+	min-width:8px !important;
+	min-height:13px !important;
+	float:right !important;
+	background:url(../img/chevron-right.svg) no-repeat 50% 50% !important;
+	height:50%;
+	position:absolute;
+	right:9px;
+}
